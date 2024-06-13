@@ -69,4 +69,11 @@ class AuthController extends BaseController
     {
         return response()->json(auth('api')->user());
     }
+
+    public function refresh()
+    {
+        return response()->json([
+            'token' => auth('api')->refresh()
+        ]);
+    }
 }
