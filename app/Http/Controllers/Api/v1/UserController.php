@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     public function update_profile(Request $request)
     {
@@ -17,16 +16,12 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json(['error' => $validator->errors()->first()], 401);
+            return $this->error($validator->errors()->first());
 
-        try {
-            $user = $request->user();
-            $user->update($request->all());
-            return response()->json($user);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 401);
-        }
+        $user = auth('api')->user();
+        $user->update($request->only(['first_name', 'last_name', 'phone']));
+        return response()->json([
+            'user' => $user,
+        ]);
     }
-
-
 }

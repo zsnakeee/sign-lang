@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     public function register(Request $request)
     {
@@ -18,16 +17,22 @@ class AuthController extends Controller
             'password' => ['required', Password::defaults()],
         ]);
 
-        if ($validator->fails())
-            return response()->json(['error' => $validator->errors()->first()], 401);
+        if ($validator->fails()) {
+            return $this->error($validator->errors()->first());
+        }
 
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        $token = auth('api')->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
         return response()->json([
-            'token' => $user->createToken($request->email)->plainTextToken,
+            'token' => $token,
             'user' => $user,
         ]);
     }
@@ -39,24 +44,29 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        if ($validator->fails())
-            return response()->json(['error' => $validator->errors()->first()], 401);
+        if ($validator->fails()) {
+            return $this->error($validator->errors()->first());
+        }
 
-        $user = User::where('email', $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['error' => 'The provided credentials are incorrect.'], 401);
+        $credentials = $request->only('email', 'password');
+        if (!$token = auth('api')->attempt($credentials)) {
+            return $this->error('The provided credentials are incorrect.');
         }
 
         return response()->json([
-            'token' => $user->createToken($request->email)->plainTextToken,
-            'user' => $user,
+            'token' => $token,
+            'user' => auth('api')->user(),
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $user = User::where('email', $request->email)->first();
-        $user?->tokens()->delete();
-        return response()->noContent();
+        auth('api')->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function me()
+    {
+        return response()->json(auth('api')->user());
     }
 }
