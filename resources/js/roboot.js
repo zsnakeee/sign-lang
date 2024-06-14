@@ -1,15 +1,3 @@
-import './bootstrap';
-
-import '../../public/assets/vendor/libs/jquery/jquery.js';
-import '../../public/assets/vendor/libs/popper/popper.js';
-import '../../public/assets/vendor/js/bootstrap.js';
-import '../../public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js';
-import '../../public/assets/vendor/libs/node-waves/node-waves.js';
-import '../../public/assets/vendor/libs/hammer/hammer.js';
-
-import '../../public/assets/vendor/js/menu.js';
-import '../../public/assets/js/main.js';
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';

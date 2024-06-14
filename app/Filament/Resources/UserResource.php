@@ -30,6 +30,11 @@ class UserResource extends Resource
                 TextInput::make('email')
                     ->label('Email')
                     ->required(),
+                TextInput::make('password')
+                    ->password()
+                    ->autocomplete('new-password')
+                    ->dehydrated(fn($state) => filled($state))
+                    ->required(fn(string $context): bool => $context === 'create'),
                 TextInput::make('phone')
                     ->label('Phone'),
                 Select::make('role')
@@ -37,6 +42,8 @@ class UserResource extends Resource
                     ->options([
                         'admin' => 'Admin',
                         'user' => 'User',
+                        'banned' => 'Banned',
+
                     ])
                     ->required()
                     ->default('user'),
@@ -58,6 +65,7 @@ class UserResource extends Resource
                     ->color(fn(User $user) => match ($user->role) {
                         'admin' => 'success',
                         'user' => 'primary',
+                        'banned' => 'danger',
                     }),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),

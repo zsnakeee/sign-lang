@@ -15,7 +15,7 @@
                  autoPlay:true,
                  loop:true,
                  opacity:1,
-                 coverImage:'{{ asset('assets/images/bg/home1.png') }}'}">
+                 coverImage:'{{ asset('assets/images/bg/home2.png') }}'}">
             </div>
             <div class="container">
                 <div class="slider__content__3">
@@ -40,7 +40,7 @@
                         <h2 class="title">{{ __('About our') }} <span>AI</span> {{ __('Model') }}</h2>
                         <p>{{ __('Our project focuses on an AI model for sign language communication. This advanced technology interprets, generates, and teaches sign language in real-time. Users can learn at their own pace through interactive lessons and practice scenarios. The AI model enhances communication, fosters inclusivity, and builds a global community of sign language users.') }}</p>
                         <canvas></canvas>
-                        <a class="htc__btn btn__theme" href="#">{{ __('Explore More') }}</a>
+                        <a class="htc__btn btn__theme" href="{{ route('about') }}">{{ __('Explore More') }}</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
                 </div>
                 <div class="about-content-3 text-center">
-                    <a class="htc__btn btn__theme" href="#">{{ __('Learn More') }}</a>
+                    <a class="htc__btn btn__theme" href="{{ route('learn-guide') }}">{{ __('Learn More') }}</a>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
     <section class="htc__blog__area htc__blog--2 pt--130 pb--130 bg__white">
         <div class="container">
             <div class="section__title text-center">
-                <h2 class="title__line">{{ __('Our') }} <span class="text--theme">{{ __('Statistics') }}</span></h2>
+                <h2 class="title__line">{{ __('Our') }} <span class="text--theme">{{ __('Blogs') }}</span></h2>
             </div>
             <div class="row htc__blog__wrap mt--40 mt-sm--30">
                 @foreach(\App\Models\Blog::limit(4)->get() as $blog)

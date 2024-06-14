@@ -2,7 +2,7 @@
 <footer class="htc__footer__area">
     <!-- Start Footer Top Area -->
     <div class="footer__top" data--black__overlay="8"
-         style="background: rgba(0, 0, 0, 0) url('{{ asset('assets/images/bg/footer1.png') }}') no-repeat scroll 0 0 / cover ;">
+         style="background: rgba(0, 0, 0, 0) url('{{ asset('assets/images/bg/3.jpg') }}') no-repeat scroll 0 0 / cover ;">
         <div class="container">
             <div class="row footer__wrap">
                 <!-- Start Single Content -->
@@ -41,12 +41,24 @@
                     </div>
                 </div>
                 <!-- End Single Content -->
-                <!-- Start Single Content -->
-                <div class="col-lg-5 col-12 smmt--30 xsmt--40">
+                 <!-- Start Single Content -->
+                 <div class="col-lg-5 col-12 smmt--30 xsmt--40">
                     <div class="footer">
-                        <h2 class="footer__title">Recently News</h2>
+                        <h2 class="footer__title">Recent Blogs</h2>
                         <div class="ft__recent__post" style="justify-content: space-between;">
-
+                            @foreach(\App\Models\Blog::limit(2)->get() as $blog)
+                                <div class="ft__single__post mr-2">
+                                    <div class="ft__post__thumb" style="height: 80px; overflow: hidden">
+                                        <a href="{{ route('blog.show', ['slug' => $blog->slug]) }}">
+                                            <img src="{{ asset('storage/' . $blog->image) }}"
+                                                 alt="p{{ $blog->title }}">
+                                        </a>
+                                    </div>
+                                    <ul class="ft__post__list">
+                                        <li>{{ Str::limit($blog->title, 20) }}</li>
+                                    </ul>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
