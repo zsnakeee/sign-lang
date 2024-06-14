@@ -10,20 +10,40 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GuideResource extends Resource
 {
     protected static ?string $model = Guide::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder-arrow-down';
+
+    protected static ?string $navigationLabel = 'Guides';
+
+    protected static ?string $navigationGroup = 'Media';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->string()
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->string()
+                    ->required(),
+                Forms\Components\FileUpload::make('image')
+                    ->image()
+                    ->required(),
+                Forms\Components\TextInput::make('video_url')
+                    ->string()
+                    ->required(),
+                Forms\Components\Select::make('category')
+                    ->options([
+                        'beginner' => 'beginner',
+                        'intermediate' => 'intermediate',
+                        'advanced' => 'advanced',
+                    ])
+                    ->required(),
             ]);
     }
 
@@ -31,7 +51,18 @@ class GuideResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Description')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('video_url')
+                    ->label('Video URL')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category')
+                    ->label('Category')
+                    ->searchable(),
             ])
             ->filters([
                 //

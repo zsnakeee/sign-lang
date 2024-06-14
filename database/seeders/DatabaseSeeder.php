@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +19,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'ziadtallat33@gmail.com',
             'password' => bcrypt('ziadxddd'),
             'role' => 'admin',
+        ]);
+
+        Status::create([
+            'name' => 'website'
+        ]);
+
+        Status::create([
+            'name' => 'ai_model'
         ]);
     }
 }

@@ -11,6 +11,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
         Route::post('refresh', [AuthController::class, 'refresh'])->middleware('auth:api');
         Route::post('user', [AuthController::class, 'me'])->middleware('auth:api');
+        Route::post('password/token', [AuthController::class, 'send_reset_token']);
+        Route::post('password/reset', [AuthController::class, 'reset_password']);
         Route::post('user/update/profile', [UserController::class, 'update_profile'])->middleware('auth:api');
     });
 });

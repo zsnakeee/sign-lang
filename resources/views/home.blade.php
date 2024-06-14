@@ -56,56 +56,24 @@
                     <h2 class="title__line">{{ __('Learn') }} <span class="text--theme">{{ __('Guide') }}</span></h2>
                 </div>
                 <div class="row portfolio__wrap portfolio__active--2 mt--70 mt-sm--60">
-                    @foreach (\App\Models\Photo::limit(3)->get() as $photo)
+                    @foreach (\App\Models\Guide::limit(3)->get() as $guide)
                         <div class="col-lg-4 col-md-6 col-12 pro__item cat--1 cat--3"
                              style="height: 250px; overflow: hidden">
-                            <a href="{{ asset('storage/' . $photo->photo_path) }}" class="portfolio-4"
+                            <a href="{{ asset('storage/' . $guide->image) }}" class="portfolio-4"
                                data-lightbox="photos"
                                data-title="Name">
-                                <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="portfolio images">
+                                <img src="{{ asset('storage/' . $guide->image) }}" alt="portfolio images">
                                 <div class="portfolio-hover">
-                                    <h2 class="title">{{ $photo->name }}</h2>
+                                    <h2 class="title">{{ $guide->name }}</h2>
                                 </div>
                             </a>
                         </div>
                     @endforeach
 
-                    <!-- Start Single Images -->
-                    {{-- <div class="col-lg-4 col-md-6 col-12 pro__item cat--1 cat--3" style="height: 250px; overflow: hidden">
-                        <a href="{{ asset('storage/name.jpg') }}" class="portfolio-4" data-lightbox="photos"
-                            data-title="Name">
-                            <img src="{{ asset('storage/name.jpg') }}" alt="portfolio images">
-                            <div class="portfolio-hover">
-                                <h2 class="title">Name</h2>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 pro__item cat--1 cat--3" style="height: 250px; overflow: hidden">
-                        <a href="{{ asset('storage/iloveyou.jpg') }}" class="portfolio-4" data-lightbox="photos"
-                            data-title="I Love You">
-                            <img src="{{ asset('storage/iloveyou.jpg') }}" alt="portfolio images">
-                            <div class="portfolio-hover">
-                                <h2 class="title">I Love You</h2>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 pro__item cat--1 cat--3" style="height: 250px; overflow: hidden">
-                        <a href="{{ asset('storage/family.jpg') }}" class="portfolio-4" data-lightbox="photos"
-                            data-title="family">
-                            <img src="{{ asset('storage/family.jpg') }}" alt="portfolio images">
-                            <div class="portfolio-hover">
-                                <h2 class="title">Family</h2>
-                            </div>
-                        </a>
-                    </div> --}}
-
-                    <!-- End Single Images -->
                 </div>
                 <div class="about-content-3 text-center">
                     <a class="htc__btn btn__theme" href="#">{{ __('Learn More') }}</a>
-
                 </div>
-
             </div>
         </div>
     </section>
@@ -118,7 +86,41 @@
                 <h2 class="title__line">{{ __('Our') }} <span class="text--theme">{{ __('Statistics') }}</span></h2>
             </div>
             <div class="row htc__blog__wrap mt--40 mt-sm--30">
-
+                @foreach(\App\Models\Blog::limit(4)->get() as $blog)
+                    <!-- Start Single Blog -->
+                    <div class="col-md-6 col-12 mt--30">
+                        <div class="blog">
+                            <div class="blog__inner">
+                                <div class="blog__thumb" style="height: 250px; overflow: hidden">
+                                    <a href="{{ route('blog.show', ['slug' => $blog->slug]) }}">
+                                        <img src="{{ asset('storage/' . $blog->image) }}" alt="blog images">
+                                    </a>
+                                    <div class="blog__hover__inner">
+                                        <div class="blog__hover__action">
+                                            <a href="{{ route('blog.show', ['slug' => $blog->slug]) }}"><i
+                                                    class="fa fa-eye"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="blog__details">
+                                    <div class="blog__date">
+                                        <i class="fa fa-clock-o"></i>{{ $blog->published_at->format('d M, Y') }}
+                                    </div>
+                                    <h2>
+                                        <a href="{{ route('blog.show', ['slug' => $blog->slug]) }}">{{ $blog->title }}</a>
+                                    </h2>
+                                    <p>{{ Str::limit($blog->content, 200)  }}</p>
+                                    <div class="blog__btn--2">
+                                        <a class="read__more__btn"
+                                           href="{{ route('blog.show', ['slug' => $blog->slug]) }}">read more......</a>
+                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>0</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Blog -->
+                @endforeach
             </div>
         </div>
     </section>
