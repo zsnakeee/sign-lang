@@ -19,8 +19,8 @@
                                    class="{{ Route::is('index') ? 'active' : '' }}">{{ __('Home') }}</a></li>
                             <li><a href="{{ route('about') }}" class="{{ Route::is('about') ? 'active' : '' }}"> {{ __('About') }}</a>
                             </li>
-                            <li><a href="{{ route('learn-guide') }}"
-                                   class="{{ Route::is('learn-guide') ? 'active' : '' }}">{{ __('Learn Guide') }}</a>
+                            <li><a href="{{ route('guide') }}"
+                                   class="{{ Route::is('guide') ? 'active' : '' }}">{{ __('Learn Guide') }}</a>
                             </li>
                             <li><a href="{{ route('blog') }}" class="{{ Route::is('blog') ? 'active' : '' }}">{{ __('Blog') }}</a></li>
                         </ul>

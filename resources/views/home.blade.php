@@ -72,7 +72,7 @@
 
                 </div>
                 <div class="about-content-3 text-center">
-                    <a class="htc__btn btn__theme" href="{{ route('learn-guide') }}">{{ __('Learn More') }}</a>
+                    <a class="htc__btn btn__theme" href="{{ route('guide') }}">{{ __('Learn More') }}</a>
                 </div>
             </div>
         </div>

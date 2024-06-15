@@ -33,7 +33,7 @@
                 <!-- Start Event Left SideBar -->
                 <div class="col-lg-8 col-12">
                     <div class="htc__blog__dtl__inner">
-                        <h2>{{ $guide->title }}</h2>
+                        <h2>{{ $guide->name }}</h2>
                         <ul class="event__post__date">
                             <li><i class="fa fa-clock-o"></i>{{ $guide->created_at->format('d M, Y') }}</li>
                         </ul>
@@ -43,18 +43,14 @@
                         <div class="htc__blog__details">
                             {!! nl2br($guide->description) !!}
                         </div>
-                        <div class="blg__meta">
-                            <ul class="blog__like">
-                                <li><a href="javascript:void(0)"><i class="fa fa-thumbs-o-up"></i>0</a></li>
-                            </ul>
-                            <div class="social__share">
-                                <span>Share now:</span>
-                                <ul class="social__icon">
-                                    <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a></li>
-                                </ul>
+                        <div class="htc__blog__details mt-3">
+                            <h2>Video</h2>
+                            <div class="blog__btl__thumb">
+                                <iframe width="100%" height="315"
+                                        src="{{ $guide->video }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -67,27 +63,27 @@
                         <div class="blog__repost section__separator">
                             <h2 class="title__line-4">Recent Post</h2>
                             <div class="bolg__post__inner">
-                                @forelse(\App\Models\Guide::where('id', '!=', $guide->id)->limit('3')->get() as $recent_blogs)
+                                @forelse(\App\Models\Guide::where('id', '!=', $guide->id)->limit('3')->get() as $recent_guide)
                                     <div class="single__post">
                                         <div class="post__thumb">
-                                            <a href="{{ route('guide.show', ['slug' => $recent_blogs->slug]) }}">
-                                                <img src="{{ asset('storage/' . $recent_blogs->image) }}"
+                                            <a href="{{ route('guide.show', ['id' => $recent_guide->id]) }}">
+                                                <img src="{{ asset('storage/' . $recent_guide->image) }}"
                                                      alt="recent post">
                                             </a>
                                         </div>
                                         <div class="post__details">
                                             <h4>
-                                                <a href="{{ route('guide.show', ['slug' => $recent_blogs->slug]) }}">
-                                                    {{ Str::limit($recent_blogs->content, 50) }}
+                                                <a href="{{ route('guide.show', ['id' => $recent_guide->id]) }}">
+                                                    {{ Str::limit($recent_guide->description, 50) }}
                                                 </a>
                                             </h4>
                                             <span class="post__date">
-                                                {{ $recent_blogs->published_at->format('d M, Y') }}
+                                                {{ $recent_guide->created_at->format('d M, Y') }}
                                             </span>
                                         </div>
                                     </div>
                                 @empty
-                                    <p>No recent blogs</p>
+                                    <p>No recent guides</p>
                                 @endforelse
                             </div>
                         </div>
