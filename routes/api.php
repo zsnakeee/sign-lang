@@ -14,5 +14,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         Route::post('password/token', [AuthController::class, 'send_reset_token']);
         Route::post('password/reset', [AuthController::class, 'reset_password']);
         Route::post('user/update/profile', [UserController::class, 'update_profile'])->middleware('auth:api');
+        Route::post('user/update/password', [UserController::class, 'change_password'])->middleware('auth:api');
+
     });
 });

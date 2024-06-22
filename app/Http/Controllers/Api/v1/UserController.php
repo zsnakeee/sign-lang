@@ -24,4 +24,27 @@ class UserController extends BaseController
             'user' => $user,
         ]);
     }
+
+
+    public function change_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string',
+            'new_password' => 'required|string',
+        ]);
+
+        if ($validator->fails())
+            return $this->error($validator->errors()->first());
+
+        $user = auth('api')->user();
+        if (!\Hash::check($request->current_password, $user->password))
+            return $this->error('Current password is incorrect');
+
+        $user->password = \Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Password successfully updated'
+        ]);
+    }
 }
