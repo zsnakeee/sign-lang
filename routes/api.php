@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\API\v1\UserController;
+use App\Http\Controllers\API\v1\StatusController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
@@ -16,5 +18,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         Route::post('user/update/profile', [UserController::class, 'update_profile'])->middleware('auth:api');
         Route::post('user/update/password', [UserController::class, 'change_password'])->middleware('auth:api');
 
+        Route::get('/statuses', [StatusController::class, 'getStatuses']);
     });
+
 });

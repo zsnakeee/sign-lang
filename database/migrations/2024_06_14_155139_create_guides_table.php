@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->text('description');
             $table->string('image');
             $table->text('video_url');
-            $table->enum('category', ['beginner', 'intermediate', 'advanced'])->default('beginner');
+            $table->enum('category', ['feeling', 'actions', 'weather'])->default('feeling');
             $table->timestamps();
         });
     }

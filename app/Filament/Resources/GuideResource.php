@@ -39,9 +39,9 @@ class GuideResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('category')
                     ->options([
-                        'beginner' => 'beginner',
-                        'intermediate' => 'intermediate',
-                        'advanced' => 'advanced',
+                        'feeling' => 'feeling',
+                        'actions' => 'actions',
+                        'weather' => 'weather',
                     ])
                     ->required(),
             ]);
