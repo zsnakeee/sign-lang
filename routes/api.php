@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\StatusController;
 use App\Http\Controllers\API\v1\GuideController;
+use App\Http\Controllers\API\v1\BlogController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
         Route::get('/statuses', [StatusController::class, 'getStatuses']);
         Route::get('guides/category/{category}', [GuideController::class, 'getGuidesByCategory']);
         Route::get('guides/count/category/', [GuideController::class, 'getAllCategoryCounts']);
+        Route::get('/blogs', [BlogController::class, 'index']);
+
 
     });
 
